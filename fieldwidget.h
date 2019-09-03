@@ -18,6 +18,7 @@ public:
     explicit FieldWidget(QWidget *parent = nullptr, int x = 0, int y = 0, int sideSize = 200, bool human = true, int seed = 0);
     QPoint getCell(int x, int y);
     State *enemyState;
+    void setShip(int n);
 
 private:
     bool horizontal;

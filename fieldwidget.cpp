@@ -159,4 +159,9 @@ void FieldWidget::doAttack()
     }
 }
 
+void FieldWidget::setShip(int n)
+{
+    ship = n;
+}
+
 
