@@ -52,6 +52,8 @@ void Field::makeField(std::string a)
 
 bool Field::checkShip(int y, int x, int size, bool horizontal)
 {
+    if (x < 0 || y < 0)
+        return false;
     if (!horizontal)
     {
         if (y+size>fieldSize)
@@ -185,6 +187,8 @@ void Field::autoPlace()
 
 bool Field::attack(int x, int y)
 {
+    if (y<0 || x < 0)
+        return false;
     if (field[y][x]<=maxShipSize)
     {
         if (field[y][x] == -1)
