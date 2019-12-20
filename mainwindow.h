@@ -22,9 +22,11 @@ public slots:
     void newGame();
     void autoPlace();
     void endGame(bool human);
+    void updateState(State new_state);
 
 private:
     Ui::MainWindow *ui;
+    QString endGameMessage(bool human);
 };
 
 #endif // MAINWINDOW_H

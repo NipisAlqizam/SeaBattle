@@ -38,6 +38,7 @@ protected:
 signals:
     void attacked();
     void lost(bool human);
+    void stateChanged(State new_state);
 
 public slots:
     void doAttack();

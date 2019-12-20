@@ -28,9 +28,7 @@ FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human
     {
         field.state = ST_WAITING;
         field.autoPlace();
-//        field.makeField(" -1 -1 -1  1 -1  2 -1  1 -1  0 1 -1 -1 -1 -1  2 -1 -1 -1  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1  3  3  3 -1  2  2 -1 -1  4                       -1 -1 -1 -1 -1 -1 -1 -1 -1  4                       -1 -1 -1 -1 -1  0  0  0 -1  4                       -1  3  3  3 -1  0  0  0 -1  4                       -1 -1 -1 -1 -1 -1  0 -1 -1 -1                        0  0 -1  2  2 -1  0 -1  1 -1                        0  0 -1 -1 -1 -1  0 -1 -1 -1");
     }
-//    qDebug() << fieldSize << ' ' << cellSize;
 //    setMouseTracking(true);
 
 }
@@ -132,6 +130,7 @@ void FieldWidget:: mousePressEvent(QMouseEvent *event)
                 ship = 0;
                 field.state = ST_ATTACKING;
                 *field.es = ST_WAITING;
+                emit stateChanged(ST_ATTACKING);
             }
         }
     }
