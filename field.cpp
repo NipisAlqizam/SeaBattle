@@ -16,22 +16,6 @@ Field::Field(int fieldSize, int seed)
       seed(seed)
 {
     srand(seed);
-//    autoPlace();
-//    putShip(4, 9, 4, false);
-//    putShip(9, 9, 1, false);
-//    makeField("  1 -1 -1 -1 -1  0 -1  2 -1  0\
-//              -1 -1  2  2 -1  0 -1  2 -1  0\
-//               0 -1 -1 -1 -1 -1 -1 -1 -1 -1\
-//               0  0 -1 -1 -1 -1  3  3  3 -1\
-//               0  0 -1  2 -1 -1 -1 -1 -1 -1\
-//               0  0 -1  2 -1 -1  1 -1 -1  4\
-//              -1 -1 -1 -1 -1 -1 -1 -1 -1  4\
-//              -1  3 -1  0  0  0  0  0 -1  4\
-//              -1  3 -1 -1 -1 -1  0  0 10 10\
-//              -1  3 -1 -1  1 -1  0  0 10 11");
-//    putShip(5, 9, 4, false);
-//    putShip(9, 9, 1, true);
-//    state = ST_ATTACKING;
     state = ST_PLACING_SHIPS;
     printField();
 }
