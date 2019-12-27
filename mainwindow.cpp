@@ -49,6 +49,7 @@ void MainWindow::newGame()
     fc->field.field = std::vector<std::vector<int>>(10, std::vector<int>(10, 0));
     fc->field.autoPlace();
     fc->repaint();
+    ui->stateLabel->setText(QString("Разместите корабли"));
 }
 
 QString MainWindow::endGameMessage(bool human)
