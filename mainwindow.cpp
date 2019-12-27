@@ -62,10 +62,6 @@ void MainWindow::endGame(bool human)
     fh->field.state = ST_ENDGAME;
     fc->field.state = ST_ENDGAME;
     ui->stateLabel->setText(QString(endGameMessage(human)));
-    if (human)
-        ui->statusBar->showMessage("You've lost", 10000);
-    else
-        ui->statusBar->showMessage("You win", 10000);
 }
 
 void MainWindow::updateState(State new_state)
