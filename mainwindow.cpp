@@ -33,11 +33,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::autoPlace()
 {
+    if (fh->field.state != State::ST_PLACING_SHIPS) return;
     fh->field.field = std::vector<std::vector<int>>(10, std::vector<int>(10, 0));
     fh->field.autoPlace();
     fc->field.state = ST_WAITING;
     fh->repaint();
     fc->repaint();
+    ui->stateLabel->setText(QString("Стреляйте!"));
 }
 
 void MainWindow::newGame()
