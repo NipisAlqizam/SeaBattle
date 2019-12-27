@@ -46,7 +46,7 @@ void MainWindow::newGame()
 {
     fh->field.field = std::vector<std::vector<int>>(10, std::vector<int>(10, 0));
     fh->field.state = ST_PLACING_SHIPS;
-    fh->setShip(0);
+    fh->resetShips();
     fh->repaint();
     fc->field.field = std::vector<std::vector<int>>(10, std::vector<int>(10, 0));
     fc->field.autoPlace();
