@@ -336,3 +336,8 @@ bool Field::checkEndGame()
     std::cout << std::endl;
     return res;
 }
+
+int Field::getMaxShipsCountFromSize(int size)
+{
+    return 5-size;
+}

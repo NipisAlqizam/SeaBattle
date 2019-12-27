@@ -28,6 +28,7 @@ public:
     void killShip(int x, int y);
     void makeField(std::string a);
     bool checkEndGame();
+    int getMaxShipsCountFromSize(int size);
 
 private:
     int seed;
