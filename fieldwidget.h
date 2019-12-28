@@ -6,6 +6,7 @@
 #include <QPoint>
 #include <QMouseEvent>
 #include <utility>
+#include <vector>
 #include "field.h"
 
 class FieldWidget : public QWidget
@@ -28,7 +29,12 @@ private:
     void drawShip(int startX, int startY,bool killed, QPainter * painter, bool alpha = false);
     void drawMissed(int x, int y, QPainter * painter);
     void removePrevShip();
-    int ship, sc;
+    int ship, shipCount;
+    std::vector<int> shipsCount;
+    /* ships_count[i] - количество i-палубных кораблей,
+     * размещённых в данный момент на поле.
+     */
+    void placeShip(QPoint cell);
 
 protected:
     void mouseMoveEvent(QMouseEvent * event);

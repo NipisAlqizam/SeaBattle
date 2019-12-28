@@ -13,7 +13,8 @@ FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human
       fieldSize(sideSize-sideSize%cellCount),
       field(10, seed),
       human(human),
-      currentShipSize(4)
+      currentShipSize(4),
+      shipsCount(4)
 {
     horizontal = true;
     qDebug() << cellCount << " " << (sideSize-sideSize%cellCount);
@@ -23,7 +24,7 @@ FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human
     this->setGeometry(x, y, sideSize+cellSize, sideSize+cellSize);
     this->fieldStart = cellSize;
     ship = 0;
-    sc = 0;
+    shipCount = 0;
     if (!human)
     {
         field.state = ST_WAITING;
@@ -115,24 +116,9 @@ void FieldWidget:: mousePressEvent(QMouseEvent *event)
         return;
     }
     QPoint cell = getCell(event->pos().x(), event->pos().y());
-    if (human && field.state == State::ST_PLACING_SHIPS && field.checkShip(cell.y(), cell.x(), currentShipSize, horizontal))
+    if (human && field.state == State::ST_PLACING_SHIPS)
     {
-        currentShipSize = field.maxShipSize-ship;
-        field.putShip(cell.y(), cell.x(), currentShipSize, horizontal);
-        sc++;
-        if (sc >= ship+1)
-        {
-            sc = 0;
-            ship++;
-            if (ship >= field.maxShipSize)
-            {
-                sc = 0;
-                ship = 0;
-                field.state = ST_ATTACKING;
-                *field.es = ST_WAITING;
-                emit stateChanged(ST_ATTACKING);
-            }
-        }
+        placeShip(cell);
     }
     else if (!human && field.state == State::ST_WAITING)
     {
@@ -144,6 +130,26 @@ void FieldWidget:: mousePressEvent(QMouseEvent *event)
     }
 //    qDebug() << human << ' ' << field.state;
     repaint();
+}
+
+void FieldWidget::placeShip(QPoint cell) {
+    if (!field.checkShip(cell.y(), cell.x(), currentShipSize, horizontal)) return;
+    currentShipSize = field.maxShipSize-ship;
+    field.putShip(cell.y(), cell.x(), currentShipSize, horizontal);
+    shipsCount[ship]++;
+    shipCount++;
+    if (shipsCount[ship] >= ship+1)
+    {
+        ship++;
+        if (ship >= field.maxShipSize)
+        {
+            shipCount = 0;
+            ship = 0;
+            field.state = ST_ATTACKING;
+            *field.es = ST_WAITING;
+            emit stateChanged(ST_ATTACKING);
+        }
+    }
 }
 
 void FieldWidget::doAttack()
@@ -161,6 +167,7 @@ void FieldWidget::doAttack()
 void FieldWidget::resetShips()
 {
     ship = 0;
+    shipsCount.assign(4, 0);
 }
 
 
