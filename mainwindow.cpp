@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(fh, &FieldWidget::lost, this, &MainWindow::endGame);
     connect(fc, &FieldWidget::lost, this, &MainWindow::endGame);
     connect(fh, &FieldWidget::stateChanged, this, &MainWindow::updateState);
+    connect(fh, &FieldWidget::shipFulled, this, &MainWindow::deactivateFulledShipButton);
 }
 
 void MainWindow::autoPlace()
@@ -52,6 +53,10 @@ void MainWindow::newGame()
     fc->field.autoPlace();
     fc->repaint();
     ui->stateLabel->setText(QString("Разместите корабли"));
+    ui->size1Button->setEnabled(true);
+    ui->size2Button->setEnabled(true);
+    ui->size3Button->setEnabled(true);
+    ui->size4Button->setEnabled(true);
 }
 
 QString MainWindow::endGameMessage(bool human)
@@ -75,4 +80,27 @@ void MainWindow::updateState(State new_state)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::deactivateFulledShipButton(int shipSize)
+{
+    switch (shipSize)
+    {
+    case 4:
+        ui->size4Button->setEnabled(false);
+        break;
+    case 3:
+        ui->size3Button->setEnabled(false);
+        break;
+    case 2:
+        ui->size2Button->setEnabled(false);
+        break;
+    case 1:
+        ui->size1Button->setEnabled(false);
+    }
+}
+
+void MainWindow::changeCurrentShipSize()
+{
+
 }

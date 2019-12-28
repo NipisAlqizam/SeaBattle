@@ -23,6 +23,8 @@ public slots:
     void autoPlace();
     void endGame(bool human);
     void updateState(State new_state);
+    void changeCurrentShipSize();
+    void deactivateFulledShipButton(int shipSize);
 
 private:
     Ui::MainWindow *ui;

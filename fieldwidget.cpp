@@ -141,6 +141,7 @@ void FieldWidget::placeShip(QPoint cell) {
     if (shipsCount[ship] >= ship+1)
     {
         ship++;
+        emit shipFulled(currentShipSize);
         if (ship >= field.maxShipSize)
         {
             shipCount = 0;
