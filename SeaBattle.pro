@@ -24,16 +24,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
+    helpdialog.cpp \
         main.cpp \
         mainwindow.cpp \
     fieldwidget.cpp \
     field.cpp
 
 HEADERS += \
+    helpdialog.h \
         mainwindow.h \
     fieldwidget.h \
     field.h \
     ship.h
 
 FORMS += \
+        helpdialog.ui \
         mainwindow.ui

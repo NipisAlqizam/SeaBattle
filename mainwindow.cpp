@@ -3,6 +3,8 @@
 #include <time.h>
 #include <vector>
 #include <QPushButton>
+#include <QMessageBox>
+#include "helpdialog.h"
 #define DEBUG
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -46,7 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(fh, &FieldWidget::shipSizeDecreased, this, &MainWindow::checkNewShipButton);
     connect(ui->rotateButton, &QPushButton::clicked, fh, &FieldWidget::rotateShip);
     connect(fh, &FieldWidget::shipPlaced, this, &MainWindow::updateShipsCount);
-
+    connect(ui->aboutAction, &QAction::triggered, this, &MainWindow::about);
+    connect(ui->helpAction, &QAction::triggered, this, &MainWindow::help);
 }
 
 void MainWindow::autoPlace()
@@ -54,6 +57,7 @@ void MainWindow::autoPlace()
     if (fh->field.state != State::ST_PLACING_SHIPS) return;
     fh->field.field = std::vector<std::vector<int>>(10, std::vector<int>(10, 0));
     fh->field.autoPlace();
+    updateState(State::ST_ATTACKING);
     fc->field.state = ST_WAITING;
     fh->repaint();
     fc->repaint();
@@ -83,6 +87,9 @@ void MainWindow::newGame()
     ui->size3Button->setEnabled(true);
     ui->size4Button->setEnabled(true);
     uncheckOtherShipButtons(ui->size4Button);
+    ui->gridLayoutWidget->show();
+    ui->rotateButton->show();
+    ui->shipsCount->show();
 }
 
 QString MainWindow::endGameMessage(bool human)
@@ -102,6 +109,9 @@ void MainWindow::updateState(State new_state)
 {
     if (new_state == State::ST_ATTACKING) {
         ui->stateLabel->setText(QString("Стреляйте!"));
+        ui->gridLayoutWidget->hide();
+        ui->rotateButton->hide();
+        ui->shipsCount->hide();
     }
 }
 
@@ -179,4 +189,14 @@ void MainWindow::updateShipsCount() {
             .arg(3-shipsCount[2])
             .arg(2-shipsCount[1])
             .arg(1-shipsCount[0]));
+}
+
+void MainWindow::about() {
+    QMessageBox aboutBox;
+    aboutBox.setText("Игра \"Морской бой\" v1.9.\nQt 5.14.0\n Создал Антон Конкин в 2020 году.");
+    aboutBox.exec();
+}
+
+void MainWindow::help() {
+    HelpDialog hd;
 }

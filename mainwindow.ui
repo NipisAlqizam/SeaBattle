@@ -45,20 +45,6 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1" colspan="2">
-      <widget class="QLabel" name="shipSizeLabel">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style&gt;p {line-height: 0.7}&lt;/style&gt;&lt;p align=&quot;justify&quot;&gt;Количество палуб&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;следующего корабля&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="size1Button">
-       <property name="text">
-        <string>1</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="2">
       <widget class="QPushButton" name="size2Button">
        <property name="text">
@@ -73,10 +59,24 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="size1Button">
+       <property name="text">
+        <string>1</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="2">
       <widget class="QPushButton" name="size4Button">
        <property name="text">
         <string>4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="QLabel" name="shipSizeLabel">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;style&gt;p {line-height: 0.7}&lt;/style&gt;&lt;p align=&quot;justify&quot;&gt;Количество палуб&lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;следующего корабля&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
       </widget>
      </item>
@@ -157,8 +157,8 @@ p, li { white-space: pre-wrap; }
     <property name="title">
      <string>Справка</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="action_4"/>
+    <addaction name="helpAction"/>
+    <addaction name="aboutAction"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -173,12 +173,12 @@ p, li { white-space: pre-wrap; }
     <string>Разместить корабли</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="helpAction">
    <property name="text">
     <string>Справка</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="aboutAction">
    <property name="text">
     <string>О программе</string>
    </property>

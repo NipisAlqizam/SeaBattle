@@ -28,6 +28,8 @@ public slots:
     void deactivateShipButton(int shipSize);
     void checkNewShipButton(int shipSize);
     void updateShipsCount();
+    void about();
+    void help();
 
 private:
     Ui::MainWindow *ui;
