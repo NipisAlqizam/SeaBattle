@@ -133,8 +133,8 @@ void FieldWidget:: mousePressEvent(QMouseEvent *event)
 }
 
 void FieldWidget::placeShip(QPoint cell) {
-    if (!field.checkShip(cell.y(), cell.x(), currentShipSize, horizontal)) return;
     currentShipSize = field.maxShipSize-ship;
+    if (!field.checkShip(cell.y(), cell.x(), currentShipSize, horizontal)) return;
     field.putShip(cell.y(), cell.x(), currentShipSize, horizontal);
     shipsCount[ship]++;
     shipCount++;
