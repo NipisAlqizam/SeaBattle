@@ -36,7 +36,7 @@ void Field::makeField(std::string a)
 
 bool Field::checkShip(int y, int x, int size, bool horizontal)
 {
-    if (x < 0 || y < 0)
+    if (x < 0 || y < 0 || x >= 10 || y >= 10)
         return false;
     if (!horizontal)
     {

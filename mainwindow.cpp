@@ -41,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->size3Button, &QPushButton::clicked, this, &MainWindow::changeCurrentShipSize);
     connect(ui->size4Button, &QPushButton::clicked, this, &MainWindow::changeCurrentShipSize);
     connect(fh, &FieldWidget::shipSizeDecreased, this, &MainWindow::checkNewShipButton);
+    connect(ui->rotateButton, &QPushButton::clicked, fh, &FieldWidget::rotateShip);
 
 }
 

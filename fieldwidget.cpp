@@ -21,7 +21,7 @@ FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human
     qDebug() << field.fieldSize;
     fieldSize = (sideSize-sideSize%cellCount);
     this->cellSize = sideSize/cellCount;
-    this->setGeometry(x, y, sideSize+cellSize, sideSize+cellSize);
+    this->setGeometry(x, y, sideSize+cellSize+10, sideSize+cellSize+10);
     this->fieldStart = cellSize;
     ship = 0;
     shipCount = 0;
@@ -210,3 +210,6 @@ void FieldWidget::setShip(int size) {
 }
 
 
+void FieldWidget::rotateShip() {
+    horizontal = !horizontal;
+}
