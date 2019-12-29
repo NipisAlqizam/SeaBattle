@@ -140,12 +140,12 @@ void FieldWidget::placeShip(QPoint cell) {
     shipCount++;
     if (shipsCount[ship] >= ship+1)
     {
-        ship++;
+        decrementShipSize();
         emit shipFulled(currentShipSize);
-        if (ship >= field.maxShipSize)
+        if (shipCount >= 10)
         {
-            shipCount = 0;
             ship = 0;
+            shipCount = 0;
             field.state = ST_ATTACKING;
             *field.es = ST_WAITING;
             emit stateChanged(ST_ATTACKING);
@@ -172,3 +172,22 @@ void FieldWidget::resetShips()
 }
 
 
+void FieldWidget::decrementShipSize()
+{
+    while (ship < 4 && shipsCount[ship] >= ship+1)
+    {
+        ship++;
+    }
+    if (ship == 4 && shipCount < 10) {
+        ship = 0;
+        while (shipsCount[ship] >= ship+1)
+        {
+            ship++;
+        }
+    }
+    emit shipSizeDecreased(ship);
+}
+
+void FieldWidget::setShip(int size) {
+    ship = size;
+}

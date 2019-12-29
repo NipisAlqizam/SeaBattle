@@ -23,12 +23,14 @@ public slots:
     void autoPlace();
     void endGame(bool human);
     void updateState(State new_state);
-    void changeCurrentShipSize();
-    void deactivateFulledShipButton(int shipSize);
+    void changeCurrentShipSize(bool checked);
+    void deactivateShipButton(int shipSize);
+    void checkNewShipButton(int shipSize);
 
 private:
     Ui::MainWindow *ui;
     QString endGameMessage(bool human);
+    void uncheckOtherShipButtons(QObject *current);
 };
 
 #endif // MAINWINDOW_H

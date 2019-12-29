@@ -20,6 +20,7 @@ public:
     QPoint getCell(int x, int y);
     State *enemyState;
     void resetShips();
+    void setShip(int size);
 
 private:
     bool horizontal;
@@ -35,6 +36,7 @@ private:
      * размещённых в данный момент на поле.
      */
     void placeShip(QPoint cell);
+    void decrementShipSize();
 
 protected:
     void mouseMoveEvent(QMouseEvent * event);
@@ -46,6 +48,7 @@ signals:
     void lost(bool human);
     void stateChanged(State new_state);
     void shipFulled(int shipSize);
+    void shipSizeDecreased(int newShipSize);
 
 public slots:
     void doAttack();
