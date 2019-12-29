@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
 #include "fieldwidget.h"
 
 namespace Ui {
@@ -26,11 +27,13 @@ public slots:
     void changeCurrentShipSize(bool checked);
     void deactivateShipButton(int shipSize);
     void checkNewShipButton(int shipSize);
+    void updateShipsCount();
 
 private:
     Ui::MainWindow *ui;
     QString endGameMessage(bool human);
     void uncheckOtherShipButtons(QObject *current);
+    QString shipsCountString;
 };
 
 #endif // MAINWINDOW_H

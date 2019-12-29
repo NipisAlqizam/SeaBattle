@@ -22,6 +22,7 @@ public:
     State *enemyState;
     void resetShips();
     void setShip(int size);
+    std::vector<int> getShipsCount();
 
 private:
     bool horizontal;
@@ -51,6 +52,7 @@ signals:
     void stateChanged(State new_state);
     void shipFulled(int shipSize);
     void shipSizeDecreased(int newShipSize);
+    void shipPlaced();
 
 public slots:
     void doAttack();

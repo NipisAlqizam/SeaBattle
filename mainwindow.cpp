@@ -7,7 +7,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    shipsCountString("")
 {
     ui->setupUi(this);
 #ifndef DEBUG
@@ -20,11 +21,13 @@ MainWindow::MainWindow(QWidget *parent) :
     fh = new FieldWidget(ui->centralWidget, 20, 20, 350, true, seed);
     fc = new FieldWidget(ui->centralWidget, 450, 20, 350, false, seed);
 #endif
+    shipsCountString = ui->shipsCount->toHtml();
     ui->size1Button->setCheckable(true);
     ui->size2Button->setCheckable(true);
     ui->size3Button->setCheckable(true);
     ui->size4Button->setCheckable(true);
     ui->size4Button->setChecked(true);
+    updateShipsCount();
     setWindowTitle(QString("Морской бой"));
     fh->field.es = &fc->field.state;
     fc->field.es = &fh->field.state;
@@ -42,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->size4Button, &QPushButton::clicked, this, &MainWindow::changeCurrentShipSize);
     connect(fh, &FieldWidget::shipSizeDecreased, this, &MainWindow::checkNewShipButton);
     connect(ui->rotateButton, &QPushButton::clicked, fh, &FieldWidget::rotateShip);
+    connect(fh, &FieldWidget::shipPlaced, this, &MainWindow::updateShipsCount);
 
 }
 
@@ -96,7 +100,9 @@ void MainWindow::endGame(bool human)
 
 void MainWindow::updateState(State new_state)
 {
-    if (new_state == State::ST_ATTACKING) ui->stateLabel->setText(QString("Стреляйте!"));
+    if (new_state == State::ST_ATTACKING) {
+        ui->stateLabel->setText(QString("Стреляйте!"));
+    }
 }
 
 MainWindow::~MainWindow()
@@ -165,4 +171,12 @@ void MainWindow::uncheckOtherShipButtons(QObject *current) {
     if (current == ui->size2Button) ui->size2Button->setChecked(true);
     if (current == ui->size3Button) ui->size3Button->setChecked(true);
     if (current == ui->size4Button) ui->size4Button->setChecked(true);
+}
+
+void MainWindow::updateShipsCount() {
+    std::vector<int> shipsCount = fh->getShipsCount();
+    ui->shipsCount->setHtml(shipsCountString.arg(4-shipsCount[3])
+            .arg(3-shipsCount[2])
+            .arg(2-shipsCount[1])
+            .arg(1-shipsCount[0]));
 }

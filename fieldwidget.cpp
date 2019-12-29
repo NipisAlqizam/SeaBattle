@@ -154,6 +154,7 @@ void FieldWidget::placeShip(QPoint cell) {
     if (!field.checkShip(cell.y(), cell.x(), currentShipSize, horizontal)) return;
     field.putShip(cell.y(), cell.x(), currentShipSize, horizontal);
     shipsCount[ship]++;
+    emit shipPlaced();
     shipCount++;
     if (shipsCount[ship] >= ship+1)
     {
@@ -212,4 +213,8 @@ void FieldWidget::setShip(int size) {
 
 void FieldWidget::rotateShip() {
     horizontal = !horizontal;
+}
+
+std::vector<int> FieldWidget::getShipsCount() {
+    return shipsCount;
 }
