@@ -32,7 +32,8 @@ SOURCES += \
 HEADERS += \
         mainwindow.h \
     fieldwidget.h \
-    field.h
+    field.h \
+    ship.h
 
 FORMS += \
         mainwindow.ui

@@ -6,7 +6,6 @@
 #include <QChar>
 #include <QPoint>
 
-
 FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human, int seed)
     : QWidget(parent),
       cellCount(10),
@@ -14,6 +13,7 @@ FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human
       field(10, seed),
       human(human),
       currentShipSize(4),
+      fantomShip(),
       shipsCount(4)
 {
     horizontal = true;
@@ -30,7 +30,7 @@ FieldWidget::FieldWidget(QWidget *parent, int x, int y, int sideSize, bool human
         field.state = ST_WAITING;
         field.autoPlace();
     }
-//    setMouseTracking(true);
+    setMouseTracking(true);
 
 }
 
@@ -63,6 +63,14 @@ void FieldWidget::paintEvent(QPaintEvent *event)
                 drawShip(j+1, i+1, false, &painter, false);
             else if (field.field[i][j] > field.maxShipSize+1)
                 drawShip(j+1, i+1, true, &painter, false);
+        }
+    }
+    if (fantomShip.exists) {
+        for (int i = 0; i<fantomShip.size; ++i) {
+            if (fantomShip.horizontal)
+                drawShip(fantomShip.x+i+1, fantomShip.y+1, false, &painter, true);
+            else
+                drawShip(fantomShip.x+1, fantomShip.y+i+1, false, &painter, true);
         }
     }
 }
@@ -102,9 +110,17 @@ QPoint FieldWidget::getCell(int x, int y)
 void FieldWidget::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint cell = getCell(event->pos().rx(), event->pos().ry());
-    if (human && field.state == State::ST_PLACING_SHIPS && field.checkShip(cell.y(), cell.x(), currentShipSize, horizontal))
+    if (human && field.state == State::ST_PLACING_SHIPS && field.checkShip(cell.y(), cell.x(), field.maxShipSize-ship, horizontal))
     {
-
+        fantomShip.exists = true;
+        fantomShip.x = cell.x();
+        fantomShip.y = cell.y();
+        fantomShip.size=field.maxShipSize-ship;
+        fantomShip.horizontal = horizontal;
+        repaint();
+    } else if (!field.checkShip(cell.y(), cell.x(), field.maxShipSize-ship, horizontal)) {
+        fantomShip.exists = false;
+        repaint();
     }
 }
 
@@ -113,6 +129,7 @@ void FieldWidget:: mousePressEvent(QMouseEvent *event)
     if (event->button() == Qt::RightButton)
     {
         horizontal = !horizontal;
+        mouseMoveEvent(event);
         return;
     }
     QPoint cell = getCell(event->pos().x(), event->pos().y());
@@ -191,3 +208,5 @@ void FieldWidget::decrementShipSize()
 void FieldWidget::setShip(int size) {
     ship = size;
 }
+
+

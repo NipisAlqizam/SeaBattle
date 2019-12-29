@@ -8,6 +8,7 @@
 #include <utility>
 #include <vector>
 #include "field.h"
+#include "ship.h"
 
 class FieldWidget : public QWidget
 {
@@ -27,6 +28,7 @@ private:
     QPen mainPen, killedPen;
     int currentShipSize;
     std::pair<QPoint, QPoint> prevShip;
+    Ship fantomShip;
     void drawShip(int startX, int startY,bool killed, QPainter * painter, bool alpha = false);
     void drawMissed(int x, int y, QPainter * painter);
     void removePrevShip();
@@ -54,5 +56,7 @@ public slots:
     void doAttack();
 
 };
+
+
 
 #endif // FIELDWIDGET_H
