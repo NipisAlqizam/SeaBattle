@@ -193,7 +193,7 @@ void MainWindow::updateShipsCount() {
 
 void MainWindow::about() {
     QMessageBox aboutBox;
-    aboutBox.setText("Игра \"Морской бой\" v1.9.\nQt 5.14.0\n Создал Антон Конкин в 2020 году.");
+    aboutBox.setText("Игра \"Морской бой\" v2.0.\nQt 5.14.0\n Создал Антон Конкин в 2020 году.");
     aboutBox.exec();
 }
 
